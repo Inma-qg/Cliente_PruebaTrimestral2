@@ -1,0 +1,38 @@
+<div>
+  <h2>Nueva Serie</h2>
+
+  <div *ngIf="successMessage" class="success">
+    <p>{{ successMessage }}</p>
+    <p>Redirigiendo al listado...</p>
+  </div>
+
+  <p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>
+
+  <form [formGroup]="serieForm" (ngSubmit)="onSubmit()" *ngIf="!successMessage">
+
+    <div>
+      <label for="title">Título *</label>
+      <input id="title" type="text" formControlName="title" placeholder="Ej: Breaking Bad" />
+      <span class="error" *ngIf="title.touched && title.hasError('required')">El título es obligatorio.</span>
+      <span class="error" *ngIf="title.touched && title.hasError('minlength')">Mínimo 3 caracteres.</span>
+    </div>
+
+    <div>
+      <label for="channel">Canal *</label>
+      <input id="channel" type="text" formControlName="channel" placeholder="Ej: AMC" />
+      <span class="error" *ngIf="channel.touched && channel.hasError('required')">El canal es obligatorio.</span>
+    </div>
+
+    <div>
+      <label for="rating">Puntuación (0–10) *</label>
+      <input id="rating" type="number" formControlName="rating" placeholder="Ej: 9" min="0" max="10" />
+      <span class="error" *ngIf="rating.touched && rating.hasError('required')">La puntuación es obligatoria.</span>
+      <span class="error" *ngIf="rating.touched && (rating.hasError('min') || rating.hasError('max'))">El valor debe estar entre 0 y 10.</span>
+    </div>
+
+    <button type="submit" [disabled]="serieForm.invalid || submitting">
+      {{ submitting ? 'Enviando...' : 'Crear Serie' }}
+    </button>
+
+  </form>
+</div>

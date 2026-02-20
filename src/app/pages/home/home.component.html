@@ -1,0 +1,15 @@
+<div>
+  <h2>Listado de Series</h2>
+
+  <p *ngIf="loading">Cargando series...</p>
+
+  <p *ngIf="error" class="error">{{ error }}</p>
+
+  <div *ngFor="let serie of series" class="serie">
+    <h3>{{ serie.title }}</h3>
+    <p>Canal: {{ serie.channel }}</p>
+    <p>Puntuación: {{ serie.rating }} / 10</p>
+  </div>
+
+  <p *ngIf="!loading && !error && series.length === 0">No hay series disponibles.</p>
+</div>
